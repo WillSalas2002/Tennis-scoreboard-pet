@@ -22,13 +22,13 @@ public final class HibernateUtil {
             configuration.setProperty("hibernate.connection.password", PropertiesUtil.get("db.password"));
 
             // Enable logging of SQL statements
-            configuration.setProperty("hibernate.show_sql", "true");
+            configuration.setProperty("hibernate.show_sql", PropertiesUtil.get("hibernate.show_sql"));
             // Enable formatting of SQL statements
-            configuration.setProperty("hibernate.format_sql", "true");
+            configuration.setProperty("hibernate.format_sql", PropertiesUtil.get("hibernate.format_sql"));
             // Set the session context
-            configuration.setProperty("hibernate.current_session_context_class", "thread");
+            configuration.setProperty("hibernate.current_session_context_class", PropertiesUtil.get("hibernate.current_session_context_class"));
             // Configure connection pooling
-            configuration.setProperty("hibernate.connection.pool_size", "10");
+            configuration.setProperty("hibernate.connection.pool_size", PropertiesUtil.get("hibernate.connection.pool_size"));
             // Map entity classes
             configuration.addAnnotatedClass(Player.class);
             configuration.addAnnotatedClass(Match.class);
