@@ -16,13 +16,13 @@ public class Match {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player1", referencedColumnName = "id")
     private Player player1;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player2", referencedColumnName = "id")
     private Player player2;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
 }
