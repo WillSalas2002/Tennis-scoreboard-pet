@@ -10,7 +10,7 @@ public class MatchesRepresentationService {
     private final MatchesRepository matchesRepository = new MatchesRepository();
 
     public List<Match> findAll(String name, String pageStr) {
-        int limit = 5;
+        int limit = 10;
         int offset = 0;
 
         if (pageStr != null) {
