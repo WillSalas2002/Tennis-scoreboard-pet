@@ -11,9 +11,10 @@ import java.util.List;
 
 public class MatchesRepository {
 
+    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     public List<Match> findAll(MatchFilter matchFilter) {
-        try (SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-             Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
 
             StringBuilder hql = new StringBuilder("""
