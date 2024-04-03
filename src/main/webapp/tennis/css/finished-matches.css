@@ -6,7 +6,6 @@
 
 .table-box {
     margin: 25px auto;
-
 }
 
 .table-row {
@@ -31,7 +30,7 @@
 }
 
 .table-head {
-    background: #007BFF;
+    background: #2727c7;
     box-shadow: none;
     color: #fff;
     font-weight: 600;
@@ -51,7 +50,7 @@
 }
 
 .info a {
-    color: #007BFF;
+    color: #2727c7;
     text-decoration: none;
 }
 
@@ -61,7 +60,7 @@
     justify-content: center;
 }
 
-form {
+.search-container form {
     background-color: #fff;
     width: 600px;
     height:55px;
@@ -70,7 +69,7 @@ form {
     justify-content: center;
 }
 
-form input {
+.search-container form input {
     flex: 1;
     border: none;
     outline: none;
@@ -78,12 +77,41 @@ form input {
     background: #ececec;
 }
 
-form button {
-    background: #007BFF;
+.search-container form button {
+    background: #2727c7;
     padding: 10px 50px;
     border: none;
     outline: none;
     color: #fff;
     letter-spacing: 1px;
     cursor: pointer;
+}
+
+.search-container form button:active {
+    background: blue;
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-container form input {
+    border: 1px solid #2727c7;
+    outline: none;
+    padding: 6px 10px;
+    margin: 5px;
+    border-radius: 3px;
+    color: ghostwhite;
+}
+
+.pagination-container input[type="submit"]:disabled {
+    background: #2727c7;
+    color: ghostwhite;
+}
+
+.pagination-container input[type="submit"] {
+    background: ghostwhite;
+    color: #2727c7;
 }

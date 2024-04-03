@@ -9,9 +9,9 @@
 </head>
 <body>
 <div class="search-container">
-    <form method="GET" action="${contextPath}/matches">
+    <form id="search-form" method="GET" action="${contextPath}/matches">
         <label for="search-input">
-            <input id="search-input" type="text" name="filter_by_player_name" placeholder="Enter player name"/>
+            <input id="search-input" type="text" name="filter_by_player_name" value="${requestScope.name}" placeholder="Enter player name"/>
         </label>
         <button type="submit">Search</button>
     </form>
@@ -35,6 +35,22 @@
                 <div class="table-cell last-cell">${match.winner.name}</div>
             </div>
         </c:forEach>
+    </div>
+    <div class="pagination-container">
+        <c:set var="currentPage" value="${param.page}" />
+        <form id="previous-page-form" method="GET" action="${contextPath}/matches">
+            <input type="hidden" name="page" value="${currentPage - 1}" />
+            <input type="submit" name="action" value="<" ${currentPage == 1 ? 'disabled' : ''} />
+        </form>
+        <c:forEach var="page" items="${requestScope.pages}">
+            <form method="GET" action="${contextPath}/matches">
+                <input type="submit" name="page" value="${page}" ${page == currentPage ? 'disabled' : ''} />
+            </form>
+        </c:forEach>
+        <form id="next-page-form" method="GET" action="${contextPath}/matches">
+            <input type="hidden" name="page" value="${currentPage + 1}" />
+            <input type="submit" name="action" value=">" ${currentPage == requestScope.pages.size() ? 'disabled' : ''} />
+        </form>
     </div>
 </c:if>
 <c:if test="${empty requestScope.matches}">
