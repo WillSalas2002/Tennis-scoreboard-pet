@@ -1,17 +1,18 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
 .table-box {
-    margin: 100px auto;
+    margin: 25px auto;
 
 }
 
 .table-row {
     display: table;
     width: 80%;
-    margin: 10px auto;
+    margin: 4px auto;
     font-family: sans-serif;
     background-color: transparent;
     padding: 12px 0;
@@ -42,4 +43,47 @@
 
 .last-cell {
     border-right: none;
+}
+
+.info {
+    margin: 25px;
+    text-align: center;
+}
+
+.info a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    background-color: #fff;
+    width: 600px;
+    height:55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 9px 49px;
+    background: #ececec;
+}
+
+form button {
+    background: #007BFF;
+    padding: 10px 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
