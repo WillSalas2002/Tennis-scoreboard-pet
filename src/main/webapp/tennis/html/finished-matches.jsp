@@ -40,16 +40,16 @@
         <c:set var="currentPage" value="${param.page}" />
         <form id="previous-page-form" method="GET" action="${contextPath}/matches">
             <input type="hidden" name="page" value="${currentPage - 1}" />
-            <input type="submit" name="action" value="<" ${currentPage == 1 ? 'disabled' : ''} />
+            <input class="page arrow" type="submit" name="action" value="<" ${currentPage == 1 ? 'disabled' : ''} />
         </form>
         <c:forEach var="page" items="${requestScope.pages}">
-            <form method="GET" action="${contextPath}/matches">
-                <input type="submit" name="page" value="${page}" ${page == currentPage ? 'disabled' : ''} />
+            <form class="page-number" method="GET" action="${contextPath}/matches">
+                <input class="page" type="submit" name="page" value="${page}" ${page == currentPage ? 'disabled' : ''} />
             </form>
         </c:forEach>
         <form id="next-page-form" method="GET" action="${contextPath}/matches">
             <input type="hidden" name="page" value="${currentPage + 1}" />
-            <input type="submit" name="action" value=">" ${currentPage == requestScope.pages.size() ? 'disabled' : ''} />
+            <input class="page arrow" type="submit" name="action" value=">" ${currentPage == requestScope.pages.size() ? 'disabled' : ''} />
         </form>
     </div>
 </c:if>

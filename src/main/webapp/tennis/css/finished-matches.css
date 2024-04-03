@@ -97,21 +97,22 @@
     justify-content: center;
 }
 
-.pagination-container form input {
+.page {
     border: 1px solid #2727c7;
     outline: none;
     padding: 6px 10px;
     margin: 5px;
     border-radius: 3px;
-    color: ghostwhite;
+    background: ghostwhite;
+    color: #2727c7;
 }
 
-.pagination-container input[type="submit"]:disabled {
+.page:not(.arrow):disabled {
     background: #2727c7;
     color: ghostwhite;
 }
 
-.pagination-container input[type="submit"] {
-    background: ghostwhite;
-    color: #2727c7;
+.page:hover {
+    background: #2727c7;
+    color: ghostwhite;
 }
