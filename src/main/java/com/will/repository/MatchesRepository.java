@@ -28,7 +28,7 @@ public class MatchesRepository {
 
             // If name is not null append query for searching by name
             if (matchFilter.name() != null) {
-                hql.append(" AND (UPPER(m.player1.name) LIKE UPPER(:name) OR UPPER(m.player2.name) LIKE UPPER(:name))");
+                hql.append(" AND (UPPER(m.player1.name) = UPPER(:name) OR UPPER(m.player2.name) = UPPER(:name))");
             }
 
             Query<Match> query = session.createQuery(hql.toString(), Match.class);
@@ -46,5 +46,35 @@ public class MatchesRepository {
             session.getTransaction().commit();
             return matches;
         }
+    }
+
+    public int countMatches() {
+        long count;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            count = session.createQuery("SELECT COUNT(e) FROM Match e", Long.class).getSingleResult();
+            session.getTransaction().commit();
+        }
+        return (int) count;
+    }
+
+    public int countMatches(String name) {
+        long count;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            count = session.createQuery("""
+                            SELECT COUNT(e)
+                            FROM Match e
+                            WHERE (
+                                UPPER(e.player1.name) = UPPER(:name)
+                                OR
+                                UPPER(e.player2.name) = UPPER(:name)
+                            )
+                            """, Long.class)
+                    .setParameter("name", name + "%")
+                    .getSingleResult();
+            session.getTransaction().commit();
+        }
+        return (int) count;
     }
 }

@@ -19,7 +19,10 @@ public class MatchesServlet extends HttpServlet {
         String pageStr = req.getParameter("page");
         String name = req.getParameter("filter_by_player_name");
 
+        req.setAttribute("name", name);
+        req.setAttribute("pages", service.countPages(name));
         req.setAttribute("matches", service.findAll(name, pageStr));
+
         req.getRequestDispatcher(JspHelper.getPath("finished-matches")).forward(req, resp);
     }
 }
