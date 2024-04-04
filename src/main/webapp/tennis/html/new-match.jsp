@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <div class="title">New Match Form</div>
-    <form method="POST" action="${pageContext}/new-match">
+    <form method="POST" action="${contextPath}/new-match">
         <label for="player-1"><span>First Player:</span>
             <input id="player-1" type="text" name="first-player"/>
         </label>
