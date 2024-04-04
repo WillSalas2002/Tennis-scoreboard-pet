@@ -1,5 +1,6 @@
 package com.will.servlet;
 
+import com.will.util.JspHelper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ public class NewMatchServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        req.getRequestDispatcher(JspHelper.getPath("new-match")).forward(req, resp);
     }
 
     @Override
