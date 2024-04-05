@@ -15,4 +15,8 @@ public class Player {
     private Integer id;
     @Column(name = "name")
     private String name;
+
+    public Player(String name) {
+        this.name = name;
+    }
 }
