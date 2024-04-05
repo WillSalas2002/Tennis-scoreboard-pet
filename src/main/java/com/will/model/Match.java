@@ -25,4 +25,9 @@ public class Match {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner", referencedColumnName = "id")
     private Player winner;
+
+    public Match(Player firstPlayer, Player secondPlayer) {
+        this.player1 = firstPlayer;
+        this.player2 = secondPlayer;
+    }
 }
