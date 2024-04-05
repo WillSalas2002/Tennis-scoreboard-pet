@@ -21,4 +21,13 @@ public class NewMatchRepository {
             return player;
         }
     }
+
+    public Player save(Player player) {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            Player savedPlayer = session.merge(player);
+            session.getTransaction().commit();
+            return savedPlayer;
+        }
+    }
 }
