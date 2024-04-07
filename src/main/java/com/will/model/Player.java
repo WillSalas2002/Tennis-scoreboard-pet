@@ -16,6 +16,10 @@ public class Player {
     @Column(name = "name")
     private String name;
 
+    public Player(Integer id) {
+        this.id = id;
+    }
+
     public Player(String name) {
         this.name = name;
     }
