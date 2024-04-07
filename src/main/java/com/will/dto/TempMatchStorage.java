@@ -1,6 +1,6 @@
 package com.will.dto;
 
-import com.will.model.Match;
+import com.will.model.MatchScoreModel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TempMatchStorage extends HashMap<UUID, Match> {
+public class TempMatchStorage extends HashMap<UUID, MatchScoreModel> {
 
     private static final TempMatchStorage STORAGE = new TempMatchStorage();
 
-    public static void addMatch(UUID uuid, Match match) {
-        STORAGE.put(uuid, match);
+    public static void addMatch(UUID uuid, MatchScoreModel matchScoreModel) {
+        STORAGE.put(uuid, matchScoreModel);
     }
 
-    public static Match getMatch(UUID uuid) {
+    public static MatchScoreModel getMatchScoreModel(UUID uuid) {
         return STORAGE.get(uuid);
     }
 }

@@ -2,6 +2,7 @@ package com.will.servlet;
 
 import com.will.dto.TempMatchStorage;
 import com.will.model.Match;
+import com.will.model.MatchScoreModel;
 import com.will.model.Player;
 import com.will.service.NewMatchService;
 import com.will.util.JspHelper;
@@ -32,11 +33,11 @@ public class NewMatchServlet extends HttpServlet {
         Player firstPlayer = newMatchService.findOrCreatePlayer(firstPlayerName);
         Player secondPlayer = newMatchService.findOrCreatePlayer(secondPlayerName);
 
-        Match match = new Match(firstPlayer, secondPlayer);
+        MatchScoreModel matchScoreModel = new MatchScoreModel(firstPlayer, secondPlayer);
         UUID matchUuid = UUID.randomUUID();
 
         // Add matches to temporary storage that exists only in memory of the program
-        TempMatchStorage.addMatch(matchUuid, match);
+        TempMatchStorage.addMatch(matchUuid, matchScoreModel);
 
         resp.sendRedirect(req.getContextPath() + "/matches-score?uuid=" + matchUuid);
     }
