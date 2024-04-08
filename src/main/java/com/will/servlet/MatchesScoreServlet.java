@@ -34,8 +34,8 @@ public class MatchesScoreServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         MatchScoreModel matchScoreModel = TempMatchStorage.getMatchScoreModel(uuid);
-        int scorerId = Integer.parseInt(req.getParameter("scorer-id"));
-        calculationService.addScore(scorerId, matchScoreModel);
+        int scoringPlayerId = Integer.parseInt(req.getParameter("scorer-id"));
+        calculationService.addScore(scoringPlayerId, matchScoreModel);
         if (!matchScoreModel.isGameFinished()) {
             doGet(req, resp);
             return;
