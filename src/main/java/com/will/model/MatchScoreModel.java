@@ -17,37 +17,45 @@ public class MatchScoreModel {
         this.player2 = new ScorePlayer(player2.getId(), player2.getName());
     }
 
-    public void addScore(int scorerId) {
-        if (scorerId == player1.getId()) {
+    public void addScore(int scoringPlayerId) {
+        if (scoringPlayerId == player1.getId())
             handleAddingScore(player1, player2);
-        } else
+        else
             handleAddingScore(player2, player1);
     }
 
-    private void handleAddingScore(ScorePlayer player2, ScorePlayer player1) {
-        if (player2.getPoint() == Point.FORTY) {
-            if (player1.getPoint() == Point.ADVANTAGE) {
-                player1.setPoint(Point.FORTY);
-            } else if (player1.getPoint() == Point.FORTY) {
-                player2.setPoint(Point.ADVANTAGE);
+    private void handleAddingScore(ScorePlayer scoringPlayer, ScorePlayer opponentPlayer) {
+        if (scoringPlayer.getPoint() == Point.FORTY || scoringPlayer.getPoint() == Point.ADVANTAGE) {
+            if (opponentPlayer.getPoint() == Point.ADVANTAGE) {
+                opponentPlayer.setPoint(Point.FORTY);
+            } else if (scoringPlayer.getPoint() == Point.ADVANTAGE) {
+                resetPointsAndIncrementSetScore(scoringPlayer, opponentPlayer);
+            } else if (opponentPlayer.getPoint() == Point.FORTY) {
+                scoringPlayer.setPoint(Point.ADVANTAGE);
             } else {
-                player1.setPoint(Point.ZERO);
-                player2.setPoint(Point.ZERO);
-                player2.increaseSetScore();
+                resetPointsAndIncrementSetScore(scoringPlayer, opponentPlayer);
             }
-            if (player2.getSetScore() == 6) {
-                player2.setSetScore(0);
-                player2.increaseGameScore();
+
+            if (scoringPlayer.getSetScore() == 6) {
+                opponentPlayer.getMatchScore().add(opponentPlayer.getSetScore());
+                scoringPlayer.getMatchScore().add(scoringPlayer.getSetScore());
+                opponentPlayer.setSetScore(0);
+                scoringPlayer.setSetScore(0);
+                scoringPlayer.incrementGameScore();
             }
         } else {
             try {
-                player2.addPoint();
-            } catch (IllegalArgumentException e) {
-                player1.setPoint(Point.ZERO);
-                player2.setPoint(Point.ZERO);
-                player2.increaseSetScore();
+                scoringPlayer.setPoint(scoringPlayer.getPoint().increment());
+            } catch (IllegalStateException e) {
+                resetPointsAndIncrementSetScore(scoringPlayer, opponentPlayer);
             }
         }
+    }
+
+    private void resetPointsAndIncrementSetScore(ScorePlayer scoringPlayer, ScorePlayer opponentPlayer) {
+        scoringPlayer.setPoint(Point.ZERO);
+        opponentPlayer.setPoint(Point.ZERO);
+        scoringPlayer.incrementSetScore();
     }
 
     public boolean isGameFinished() {
@@ -57,7 +65,6 @@ public class MatchScoreModel {
         if (player2.getGameScore() == 2) {
             this.winner = player2;
         }
-
         return winner != null;
     }
 }
