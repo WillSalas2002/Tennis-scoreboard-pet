@@ -45,8 +45,9 @@ public class MatchesScoreServlet extends HttpServlet {
                 new Player(matchScoreModel.getPlayer2().getId()),
                 new Player(matchScoreModel.getWinner().getId())
         );
-        Match finishedMatch = persistenceService.save(match);
-        req.setAttribute("finishedMatch", finishedMatch);
-        req.getRequestDispatcher(JspHelper.getPath("matches-score")).forward(req, resp);
+        persistenceService.save(match);
+        TempMatchStorage.removeMatch(uuid);
+        req.setAttribute("finishedMatch", matchScoreModel);
+        req.getRequestDispatcher(JspHelper.getPath("match-result")).forward(req, resp);
     }
 }

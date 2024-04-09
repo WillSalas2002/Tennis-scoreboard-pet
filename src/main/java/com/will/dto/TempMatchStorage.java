@@ -16,6 +16,10 @@ public class TempMatchStorage extends HashMap<UUID, MatchScoreModel> {
         STORAGE.put(uuid, matchScoreModel);
     }
 
+    public static void removeMatch(UUID uuid) {
+        STORAGE.remove(uuid);
+    }
+
     public static MatchScoreModel getMatchScoreModel(UUID uuid) {
         return STORAGE.get(uuid);
     }
