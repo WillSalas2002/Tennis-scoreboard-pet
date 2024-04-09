@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: bold;
+    background: #72b6fb;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: rgb(20, 20, 170);
+    min-height: 100vh;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.sm-container {
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    height: 150px;
+}
+
+.players {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.player {
+    padding: 10px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.score {
+    padding: 5px;
+    background: rgb(74, 22, 22);
+    color: white;
+    font-size: 36px;
+    height: 50px;
+}
+
+.sets {
+    display: flex;
+    flex-direction: row;
+}
+
+.set {
+    margin: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sets .score {
+    width: fit-content;
+}
+
+.interval {
+    margin: 5px;
+    font-size: 10px;
+    font-weight: bolder;
+}
+
+.forms {
+    padding: 0;
+}
+
+form {
+    display: flex;
+    padding: 0;
+}
+
+form button {
+    background-color: #4c4caf;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    width: 150px;
+    word-wrap: break-word;
+    overflow: hidden; /* Clip any content that exceeds the button boundaries */
+    text-overflow: ellipsis; /* Display an ellipsis (...) when content is clipped */
+    white-space: nowrap; /* Prevent the text from wrapping within each line */
+}
+
+form button:hover {
+    background-color: #333399;
+}
+
+form button:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+}
