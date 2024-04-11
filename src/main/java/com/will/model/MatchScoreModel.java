@@ -11,6 +11,7 @@ public class MatchScoreModel {
     private final ScorePlayer player1;
     private final ScorePlayer player2;
     private ScorePlayer winner;
+    private boolean isSixAll;
 
     public MatchScoreModel(Player player1, Player player2) {
         this.player1 = new ScorePlayer(player1.getId(), player1.getName());
@@ -18,44 +19,81 @@ public class MatchScoreModel {
     }
 
     public void addScore(int scoringPlayerId) {
-        if (scoringPlayerId == player1.getId())
-            handleAddingScore(player1, player2);
-        else
-            handleAddingScore(player2, player1);
+        ScorePlayer scoredPlayer = scoringPlayerId == player1.getId() ? player1 : player2;
+        ScorePlayer opponentPlayer = scoringPlayerId == player1.getId() ? player2 : player1;
+        if (isSixAll) {
+            handleTieBreak(scoredPlayer, opponentPlayer);
+        } else {
+            handleScoreAdding(scoredPlayer, opponentPlayer);
+        }
+
     }
 
-    private void handleAddingScore(ScorePlayer scoringPlayer, ScorePlayer opponentPlayer) {
-        if (scoringPlayer.getPoint() == Point.FORTY || scoringPlayer.getPoint() == Point.ADVANTAGE) {
-            if (opponentPlayer.getPoint() == Point.ADVANTAGE) {
-                opponentPlayer.setPoint(Point.FORTY);
-            } else if (scoringPlayer.getPoint() == Point.ADVANTAGE) {
-                resetPointsAndIncrementSetScore(scoringPlayer, opponentPlayer);
-            } else if (opponentPlayer.getPoint() == Point.FORTY) {
-                scoringPlayer.setPoint(Point.ADVANTAGE);
-            } else {
-                resetPointsAndIncrementSetScore(scoringPlayer, opponentPlayer);
-            }
-
-            if (scoringPlayer.getSetScore() == 6) {
-                opponentPlayer.getMatchScore().add(opponentPlayer.getSetScore());
-                scoringPlayer.getMatchScore().add(scoringPlayer.getSetScore());
-                opponentPlayer.setSetScore(0);
-                scoringPlayer.setSetScore(0);
-                scoringPlayer.incrementGameScore();
-            }
-        } else {
-            try {
-                scoringPlayer.setPoint(scoringPlayer.getPoint().increment());
-            } catch (IllegalStateException e) {
-                resetPointsAndIncrementSetScore(scoringPlayer, opponentPlayer);
+    private void handleTieBreak(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+        scoredPlayer.incrementSetScore();
+        if (scoredPlayer.getSetScore() >= 7) {
+            int subtraction = subtractSetValues(scoredPlayer, opponentPlayer);
+            if (subtraction >= 2) {
+                scoredPlayer.setSetScore(7);
+                opponentPlayer.setSetScore(6);
+                saveFinishedSet(scoredPlayer, opponentPlayer);
+                resetSetAndIncrementGameScore(scoredPlayer, opponentPlayer);
+                isSixAll = false;
             }
         }
     }
 
-    private void resetPointsAndIncrementSetScore(ScorePlayer scoringPlayer, ScorePlayer opponentPlayer) {
-        scoringPlayer.setPoint(Point.ZERO);
-        opponentPlayer.setPoint(Point.ZERO);
-        scoringPlayer.incrementSetScore();
+    private void handleScoreAdding(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+
+        if (scoredPlayer.getPoint() == Point.FORTY || scoredPlayer.getPoint() == Point.ADVANTAGE) {
+
+            if (opponentPlayer.getPoint() == Point.ADVANTAGE) {
+                opponentPlayer.setPoint(Point.FORTY);
+            } else if (scoredPlayer.getPoint() == Point.ADVANTAGE) {
+                resetPointsAndIncrementSetScore(scoredPlayer, opponentPlayer);
+            } else if (opponentPlayer.getPoint() == Point.FORTY) {
+                scoredPlayer.setPoint(Point.ADVANTAGE);
+            } else {
+                resetPointsAndIncrementSetScore(scoredPlayer, opponentPlayer);
+            }
+
+            if (scoredPlayer.getSetScore() >= 6) {
+                int subtractionOfSets = subtractSetValues(scoredPlayer, opponentPlayer);
+                if (subtractionOfSets >= 2) {
+                    saveFinishedSet(scoredPlayer, opponentPlayer);
+                    resetSetAndIncrementGameScore(scoredPlayer, opponentPlayer);
+                } else if (subtractionOfSets == 0) {
+                    isSixAll = true;
+                }
+            }
+        } else {
+            try {
+                scoredPlayer.incrementPoint();
+            } catch (IllegalStateException e) {
+                resetPointsAndIncrementSetScore(scoredPlayer, opponentPlayer);
+            }
+        }
+    }
+
+    private int subtractSetValues(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+        return scoredPlayer.getSetScore() - opponentPlayer.getSetScore();
+    }
+
+    private void resetSetAndIncrementGameScore(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+        opponentPlayer.resetSet();
+        scoredPlayer.resetSet();
+        scoredPlayer.incrementGameScore();
+    }
+
+    private void saveFinishedSet(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+        opponentPlayer.getMatches().add(opponentPlayer.getSetScore());
+        scoredPlayer.getMatches().add(scoredPlayer.getSetScore());
+    }
+
+    private void resetPointsAndIncrementSetScore(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+        scoredPlayer.resetPoint();
+        opponentPlayer.resetPoint();
+        scoredPlayer.incrementSetScore();
     }
 
     public boolean isGameFinished() {

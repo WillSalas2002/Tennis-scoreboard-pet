@@ -11,7 +11,7 @@ public class ScorePlayer {
     private String name;
     private Point point;
     private int setScore;
-    private LinkedList<Integer> matchScore = new LinkedList<>();
+    private LinkedList<Integer> matches = new LinkedList<>();
     private int gameScore;
 
     public ScorePlayer(Integer id, String name) {
@@ -20,11 +20,23 @@ public class ScorePlayer {
         this.point = Point.ZERO;
     }
 
+    public void incrementPoint() {
+        point = point.increment();
+    }
+
     public void incrementSetScore() {
         setScore++;
     }
 
     public void incrementGameScore() {
         gameScore++;
+    }
+
+    public void resetPoint() {
+        this.point = Point.ZERO;
+    }
+
+    public void resetSet() {
+        this.setScore = 0;
     }
 }
