@@ -1,6 +1,6 @@
 package com.will.dto;
 
-import com.will.model.MatchScoreModel;
+import com.will.service.score_models.MatchScoreModel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

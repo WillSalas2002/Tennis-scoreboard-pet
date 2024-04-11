@@ -1,5 +1,6 @@
-package com.will.model;
+package com.will.service.score_models;
 
+import com.will.model.Player;
 import com.will.service.score_models.Point;
 import com.will.service.score_models.ScorePlayer;
 import lombok.Getter;

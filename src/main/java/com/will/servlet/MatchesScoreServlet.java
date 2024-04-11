@@ -2,7 +2,7 @@ package com.will.servlet;
 
 import com.will.dto.TempMatchStorage;
 import com.will.model.Match;
-import com.will.model.MatchScoreModel;
+import com.will.service.score_models.MatchScoreModel;
 import com.will.model.Player;
 import com.will.service.FinishedMatchesPersistenceService;
 import com.will.service.MatchScoreCalculationService;
