@@ -4,6 +4,10 @@
     font-family: sans-serif;
 }
 
+body {
+    background-color: rgb(236, 241, 243);
+}
+
 .table-box {
     margin: 25px auto;
 }
