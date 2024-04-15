@@ -11,6 +11,7 @@ public class MatchScoreModel {
     private ScorePlayer winner;
     @Setter
     private boolean isSixAll;
+    private boolean isMatchFinished;
 
     public MatchScoreModel(Player player1, Player player2) {
         this.player1 = new ScorePlayer(player1.getId(), player1.getName());
@@ -113,6 +114,7 @@ public class MatchScoreModel {
         if (player2.getGameScore() == 2) {
             this.winner = player2;
         }
-        return winner != null;
+        
+        return isMatchFinished = (winner != null);
     }
 }

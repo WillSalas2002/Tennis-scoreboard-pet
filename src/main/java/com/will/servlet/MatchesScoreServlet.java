@@ -36,7 +36,7 @@ public class MatchesScoreServlet extends HttpServlet {
         MatchScoreModel matchScoreModel = TempMatchStorage.getMatchScoreModel(uuid);
         int scoringPlayerId = Integer.parseInt(req.getParameter("scorer-id"));
         calculationService.addScore(scoringPlayerId, matchScoreModel);
-        if (!matchScoreModel.isGameFinished()) {
+        if (!matchScoreModel.isMatchFinished()) {
             doGet(req, resp);
             return;
         }
@@ -47,7 +47,7 @@ public class MatchesScoreServlet extends HttpServlet {
         );
         persistenceService.save(match);
         TempMatchStorage.removeMatch(uuid);
-        req.setAttribute("finishedMatch", matchScoreModel);
-        req.getRequestDispatcher(JspHelper.getPath("match-result")).forward(req, resp);
+        req.setAttribute("match", matchScoreModel);
+        req.getRequestDispatcher(JspHelper.getPath("matches-score")).forward(req, resp);
     }
 }

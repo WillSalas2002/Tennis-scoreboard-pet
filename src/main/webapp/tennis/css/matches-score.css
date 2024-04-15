@@ -1,105 +1,131 @@
 body {
-    margin: 0;
     font-family: sans-serif;
-    font-weight: bold;
-    background: #72b6fb;
+    margin: 0;
     height: 100vh;
-}
 
-.container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: rgb(20, 20, 170);
-    min-height: 100vh;
-    margin-top: auto;
-    margin-bottom: auto;
+    justify-content: space-between;
 }
 
-.sm-container {
-    vertical-align: middle;
+.tennis-scoreboard {
+    background-color: rgb(33, 105, 33);
+    padding: 50px 0;
+    width: 90%;
+    margin: auto;
+    flex: 1;
+}
+
+.player-names {
+    font-size: 30px;
+    padding-bottom: 40px;
+
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-    margin: 5px;
-    height: 150px;
 }
 
-.players {
+hr {
+    margin-bottom: 10px;
+}
+
+.scoreboard {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-
 }
 
-.player {
-    padding: 10px;
-    font-size: 36px;
+.title {
+    font-size: 13px;
     font-weight: bold;
 }
 
-.score {
-    padding: 5px;
-    background: rgb(74, 22, 22);
-    color: white;
-    font-size: 36px;
-    height: 50px;
+.previous-sets-section {
+    flex: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
 
-.sets {
+.player-sets {
     display: flex;
     flex-direction: row;
 }
 
-.set {
-    margin: 6px;
+.button-section {
+    flex: 2;
+
     display: flex;
     flex-direction: column;
+    gap: 10px;
     align-items: center;
-}
-
-.sets .score {
-    width: fit-content;
-}
-
-.interval {
-    margin: 5px;
-    font-size: 10px;
-    font-weight: bolder;
-}
-
-.forms {
-    padding: 0;
 }
 
 form {
-    display: flex;
-    padding: 0;
+    margin: 0;
 }
 
-form button {
-    background-color: #4c4caf;
-    color: white;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
+.button input {
+    border: 1px solid black;
+    font-size: 30px;
+    padding: 12px 20px;
     cursor: pointer;
+    background-color: #d6d4d4;
+}
+
+.button input:hover {
+    opacity: 0.85;
+}
+
+.button input:active {
+    opacity: 0.7;
+}
+
+.finished-match-info {
+    font-size: 30px;
+    padding-top: 30px;
+}
+
+.sets-section {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.sets {
+    font-size: 50px;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 0 3px;
     margin-right: 10px;
-    width: 150px;
-    word-wrap: break-word;
-    overflow: hidden; /* Clip any content that exceeds the button boundaries */
-    text-overflow: ellipsis; /* Display an ellipsis (...) when content is clipped */
-    white-space: nowrap; /* Prevent the text from wrapping within each line */
+    background-color: rgb(166, 212, 72);
 }
 
-form button:hover {
-    background-color: #333399;
+.points-section {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
 
-form button:disabled {
-    background-color: lightgray;
-    cursor: not-allowed;
+.point {
+    font-size: 50px;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 0 3px;
+    background-color: rgb(242, 234, 234);
+}
+
+.winner-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    padding-top: 30px;
 }
