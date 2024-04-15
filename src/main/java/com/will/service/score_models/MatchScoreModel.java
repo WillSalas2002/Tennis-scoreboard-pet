@@ -1,17 +1,15 @@
 package com.will.service.score_models;
 
 import com.will.model.Player;
-import com.will.service.score_models.Point;
-import com.will.service.score_models.ScorePlayer;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class MatchScoreModel {
     private final ScorePlayer player1;
     private final ScorePlayer player2;
     private ScorePlayer winner;
+    @Setter
     private boolean isSixAll;
 
     public MatchScoreModel(Player player1, Player player2) {
@@ -31,12 +29,12 @@ public class MatchScoreModel {
     }
 
     private void handleTieBreak(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
-        scoredPlayer.incrementSetScore();
-        if (scoredPlayer.getSetScore() >= 7) {
-            int subtraction = subtractSetValues(scoredPlayer, opponentPlayer);
+        scoredPlayer.incrementTieSetScore();
+        if (scoredPlayer.getTieSetScore() >= 7) {
+            int subtraction = scoredPlayer.getTieSetScore() - opponentPlayer.getTieSetScore();
             if (subtraction >= 2) {
-                scoredPlayer.setSetScore(7);
-                opponentPlayer.setSetScore(6);
+                scoredPlayer.incrementSetScore();
+                resetTieSet(scoredPlayer, opponentPlayer);
                 saveFinishedSet(scoredPlayer, opponentPlayer);
                 resetSetAndIncrementGameScore(scoredPlayer, opponentPlayer);
                 isSixAll = false;
@@ -59,11 +57,11 @@ public class MatchScoreModel {
             }
 
             if (scoredPlayer.getSetScore() >= 6) {
-                int subtractionOfSets = subtractSetValues(scoredPlayer, opponentPlayer);
-                if (subtractionOfSets >= 2) {
+                int subtractionOfTieSets = subtractSetValues(scoredPlayer, opponentPlayer);
+                if (subtractionOfTieSets >= 2) {
                     saveFinishedSet(scoredPlayer, opponentPlayer);
                     resetSetAndIncrementGameScore(scoredPlayer, opponentPlayer);
-                } else if (subtractionOfSets == 0) {
+                } else if (subtractionOfTieSets == 0) {
                     isSixAll = true;
                 }
             }
@@ -87,14 +85,25 @@ public class MatchScoreModel {
     }
 
     private void saveFinishedSet(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
-        opponentPlayer.getMatches().add(opponentPlayer.getSetScore());
-        scoredPlayer.getMatches().add(scoredPlayer.getSetScore());
+        for (int i = 0; i < 3; i++) {
+            int sumOfPreviousSets = opponentPlayer.getMatches().get(i) + scoredPlayer.getMatches().get(i);
+            if (sumOfPreviousSets == 0) {
+                opponentPlayer.getMatches().set(i, opponentPlayer.getSetScore());
+                scoredPlayer.getMatches().set(i, scoredPlayer.getSetScore());
+                break;
+            }
+        }
     }
 
     private void resetPointsAndIncrementSetScore(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
         scoredPlayer.resetPoint();
         opponentPlayer.resetPoint();
         scoredPlayer.incrementSetScore();
+    }
+
+    private void resetTieSet(ScorePlayer scoredPlayer, ScorePlayer opponentPlayer) {
+        scoredPlayer.resetTieSet();
+        opponentPlayer.resetTieSet();
     }
 
     public boolean isGameFinished() {

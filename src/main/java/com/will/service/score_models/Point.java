@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Point {
-    ZERO("0"), FIFTEEN("15"), THIRTY("30"), FORTY("40"), ADVANTAGE("AD");
+    ZERO("00"), FIFTEEN("15"), THIRTY("30"), FORTY("40"), ADVANTAGE("AD");
 
     private final String value;
 
