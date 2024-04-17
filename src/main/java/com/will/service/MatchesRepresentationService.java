@@ -30,17 +30,19 @@ public class MatchesRepresentationService {
     public List<Integer> countPages(String name) {
         List<Integer> pages = new ArrayList<>();
         if (name == null || name.isBlank()) {
-            int i = matchesRepository.countMatches() / LIMIT;
-            for (int j = 1; j <= i; j++) {
-                pages.add(j);
-            }
+            double dataCount = matchesRepository.countMatches();
+            countPages(pages, dataCount);
         } else {
             double dataCount = matchesRepository.countMatches(name);
-            double pageCount = Math.ceil(dataCount / (double) LIMIT);
-            for (int j = 1; j <= pageCount; j++) {
-                pages.add(j);
-            }
+            countPages(pages, dataCount);
         }
         return pages;
+    }
+
+    private void countPages(List<Integer> pages, double dataCount) {
+        int pageCount = (int) Math.ceil(dataCount / LIMIT);
+        for (int i = 1; i <= pageCount; i++) {
+            pages.add(i);
+        }
     }
 }
